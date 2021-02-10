@@ -2,7 +2,6 @@ package com.zemosolabs.debuggingscenarios;
 
 import com.google.common.base.Preconditions;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -53,7 +52,9 @@ public class CartService implements ICartService{
   @Override
   public Map<String, Item> getCart(final UUID customerId) {
     Preconditions.checkNotNull(customerId, "CustomerId");
-    var cart = fCart.get(customerId);
-    return cart != null ? cart : new ConcurrentHashMap<>();
+    synchronized (customerId){
+      var cart = fCart.get(customerId);
+      return cart != null ? cart : new ConcurrentHashMap<>();
+    }
   }
 }

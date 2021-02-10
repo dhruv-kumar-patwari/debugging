@@ -27,11 +27,6 @@ public class CheckoutService implements ICheckoutService{
             .map(itemKey -> cart.get(itemKey).getCost() * cart.get(itemKey).getQuantity())
             .reduce(0.0D, Double::sum);
     fBalanceService.deductBalance(customerId, amount);
-    ejectItemsInCart(cart);
     fCartService.clearCart(customerId);
-  }
-
-  private void ejectItemsInCart(final Map cart){
-    //code to eject items
   }
 }

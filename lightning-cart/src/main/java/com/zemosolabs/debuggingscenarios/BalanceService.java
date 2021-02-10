@@ -24,15 +24,16 @@ public class BalanceService implements IBalanceService {
     fCustomerBalance.merge(customerId, amount, Double::sum);
   }
 
-
   public void deductBalance(final UUID customerId, final double amount) {
     Preconditions.checkNotNull(customerId, "CustomerId");
-    var balance = getBalance(customerId);
-    Preconditions.checkState(
-            amount > 0, "Amount should be greater than 0.");
-    Preconditions.checkState(
-            balance > 0 && balance - amount >= 0,
-            "Customer does not have enough balance to deduct.");
-    fCustomerBalance.put(customerId, balance - amount);
+    synchronized (customerId){
+      var balance = getBalance(customerId);
+      Preconditions.checkState(
+              amount > 0, "Amount should be greater than 0.");
+      Preconditions.checkState(
+              balance > 0 && balance - amount >= 0,
+              "Customer does not have enough balance to deduct.");
+      fCustomerBalance.put(customerId, balance - amount);
+    }
   }
 }
