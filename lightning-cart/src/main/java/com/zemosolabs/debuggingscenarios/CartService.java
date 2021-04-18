@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class CartService implements ICartService{
 
-  private final Map<UUID, Map<String, Item>> fCart = new ConcurrentHashMap<>();
+  private final Map<UUID, Map<String, Integer>> fCart = new ConcurrentHashMap<>();
 
   @Override
   public void addItemToCart(final UUID customerId, final Item item) {
@@ -20,12 +20,9 @@ public class CartService implements ICartService{
       }
 
       if(cart.containsKey(item.getName())){
-        cart.remove(item.getName());
-        cart.put(
-                item.getName(),
-                new Item(item.getName(), item.getCost(), item.getQuantity()));
+        cart.put(item.getName(), cart.get(item.getName()) + 1);
       } else {
-        cart.put(item.getName(), item);
+        cart.put(item.getName(), 1);
       }
     }
 
@@ -50,7 +47,7 @@ public class CartService implements ICartService{
   }
 
   @Override
-  public Map<String, Item> getCart(final UUID customerId) {
+  public Map<String, Integer> getCart(final UUID customerId) {
     Preconditions.checkNotNull(customerId, "CustomerId");
     synchronized (customerId){
       var cart = fCart.get(customerId);

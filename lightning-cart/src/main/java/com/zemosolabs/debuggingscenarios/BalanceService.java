@@ -26,7 +26,7 @@ public class BalanceService implements IBalanceService {
 
   public void deductBalance(final UUID customerId, final double amount) {
     Preconditions.checkNotNull(customerId, "CustomerId");
-    synchronized (customerId){
+//    synchronized (customerId){
       var balance = getBalance(customerId);
       Preconditions.checkState(
               amount > 0, "Amount should be greater than 0.");
@@ -34,6 +34,10 @@ public class BalanceService implements IBalanceService {
               balance > 0 && balance - amount >= 0,
               "Customer does not have enough balance to deduct.");
       fCustomerBalance.put(customerId, balance - amount);
-    }
+//    }
+  }
+
+  public void resetBalance(final UUID customerId){
+    fCustomerBalance.put(customerId, 0.0D);
   }
 }

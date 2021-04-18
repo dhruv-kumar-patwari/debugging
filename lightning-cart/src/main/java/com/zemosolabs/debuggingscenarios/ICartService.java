@@ -10,5 +10,5 @@ public interface ICartService {
 
   void clearCart(UUID customerId);
 
-  Map<String, Item> getCart(UUID customerId);
+  Map<String, Integer> getCart(UUID customerId);
 }

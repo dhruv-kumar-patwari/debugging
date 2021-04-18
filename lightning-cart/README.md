@@ -23,4 +23,7 @@ storage, cache, etc and other layers have been omitted. Only the relevant
 code, where the bug can be isolated, has been included.
 - Code for purchase via credit card has been omitted. Customer can only 
 purchase items if he has enough credit balance.
+- Code for bootstrapping the code in a spring boot service (Application class, 
+  Controllers, etc) has been omitted as it is not the cause for concern in this 
+  debugging scenario.
 

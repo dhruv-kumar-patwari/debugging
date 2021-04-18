@@ -6,17 +6,19 @@ import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
-public class LighteningCartIntegrationTest {
+public class LightningCartIntegrationTest {
   private ICartService fCartService;
   private IBalanceService fBalanceService;
   private ICheckoutService fCheckoutService;
+  private IItemCatalogue fItemCatalogue;
   private static final UUID CUSTOMER_1 = UUID.randomUUID();
 
   @BeforeEach
   public void initEach(){
     fCartService = new CartService();
     fBalanceService = new BalanceService();
-    fCheckoutService = new CheckoutService(fCartService, fBalanceService);
+    fItemCatalogue = new ItemCatalogue();
+    fCheckoutService = new CheckoutService(fCartService, fBalanceService, fItemCatalogue);
   }
 
   @Test
