@@ -95,7 +95,7 @@ loginBtn.addEventListener('click', e => {
 	}
 
 	//set the username and create logged in message
-	username = usernameInput.text;
+	username = usernameInput.value;
 	sendMessage({ author: username, type: messageTypes.LOGIN });
 
 	//show chat window and hide login
